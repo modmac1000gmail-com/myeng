@@ -1,0 +1,1261 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>م. معاذ الحارثي | المهندس المدني المحترف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        :root {
+            /* النمط الفاتح */
+            --bg-primary-light: #ffffff;
+            --bg-secondary-light: #f8f9fa;
+            --text-primary-light: #2d3436;
+            --text-secondary-light: #636e72;
+            --accent-light: #ffd60a;
+            --accent-dark-light: #ffc300;
+            
+            /* النمط الداكن */
+            --bg-primary-dark: #0f172a;
+            --bg-secondary-dark: #1e293b;
+            --text-primary-dark: #f8f9fa;
+            --text-secondary-dark: #cbd5e1;
+            --accent-dark: #ffc300;
+            --accent-darker: #ffa500;
+
+            /* ألوان ثابتة */
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        .light-mode {
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --accent: var(--accent-light);
+            --accent-hover: var(--accent-dark-light);
+        }
+
+        .dark-mode {
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --accent: var(--accent-dark);
+            --accent-hover: var(--accent-darker);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .navbar-start {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-center {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .navbar-end {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        .menu-trigger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            min-height: 100vh;
+            padding-top: 120px;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 214, 10, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(255, 195, 0, 0.15) 0%, transparent 30%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .profile-frame {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            bottom: -20px;
+            left: -20px;
+            border: 3px solid var(--accent);
+            border-radius: 40px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* النافذة المنبثقة */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-container.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .contact-modal {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .contact-modal.active {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* نموذج الاتصال */
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            background: var(--bg-primary);
+        }
+
+        .form-label {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--bg-primary);
+            padding: 0 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* التأثيرات الحركية */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* القائمة الجانبية */
+        .side-menu {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--bg-primary);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .menu-trigger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .navbar {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .profile-img {
+                max-width: 300px;
+            }
+
+            .side-menu {
+                width: 100%;
+                right: -100%;
+            }
+        }
+        /* أنماط الأزرار */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: var(--accent);
+    color: var(--bg-primary);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.cta-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button i {
+    font-size: 1.2rem;
+}
+
+/* تحسينات النافذة المنبثقة */
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: var(--bg-secondary);
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* تحسينات نموذج الاتصال */
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.form-input:focus {
+    border-color: var(--accent);
+    outline: none;
+    background: var(--bg-primary);
+}
+
+.form-label {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: var(--bg-primary);
+    padding: 0 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus + .form-label {
+    color: var(--accent);
+}
+
+/* تحسينات القائمة الجانبية */
+.menu-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-close:hover {
+    background: var(--bg-secondary);
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* تحسينات رسائل النظام */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1001;
+    animation: slideIn 0.3s ease forwards;
+    border-right: 4px solid var(--accent);
+}
+
+.toast-success {
+    border-color: var(--success);
+}
+
+.toast-error {
+    border-color: var(--error);
+}
+
+.toast-info {
+    border-color: var(--warning);
+}
+
+/* تحسينات التأثيرات الحركية */
+@keyframes slideIn {
+    from { 
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* تحسينات النافذة المنبثقة */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal-container.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.contact-modal {
+    background: var(--bg-primary);
+    padding: 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.contact-modal.active {
+    transform: scale(1);
+}
+
+.contact-modal h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--accent);
+    font-size: 1.8rem;
+}
+
+/* تحسينات التصميم المتجاوب */
+@media (max-width: 768px) {
+    .contact-modal {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .toast {
+        width: 90%;
+        right: 5%;
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* تحسينات إضافية */
+.form-input::placeholder {
+    color: var(--text-secondary);
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+
+
+
+/* قسم المميزات */
+.features-section {
+    padding: 6rem 2rem;
+    background: var(--bg-primary);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.feature-card {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: var(--bg-primary);
+}
+
+.feature-card h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* الفوتر */
+.footer {
+    background: var(--bg-secondary);
+    padding: 4rem 2rem 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    padding-right: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--text-secondary);
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.copyright {
+    color: var(--text-secondary);
+}
+
+/* تصميم متجاوب إضافي */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .contact-info p {
+        justify-content: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* أنماط قسم الهيئة السعودية للمهندسين */
+.sce-info {
+    background: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(var(--accent), 0.1);
+}
+
+.sce-logo {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.sce-logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.sce-details p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.sce-details i {
+    color: var(--accent);
+    width: 20px;
+    text-align: center;
+}
+
+.sce-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.sce-link:hover {
+    transform: translateX(-5px);
+}
+
+.sce-link i {
+    font-size: 0.9rem;
+}
+
+/* تحسين التصميم المتجاوب */
+@media (max-width: 768px) {
+    .sce-info {
+        text-align: center;
+    }
+
+    .sce-details p {
+        justify-content: center;
+    }
+
+    .sce-link {
+        justify-content: center;
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="navbar-start">
+            <button class="menu-trigger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="#" class="nav-logo">م. معاذ الحارثي</a>
+        </div>
+        
+        <div class="navbar-center">
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">الرئيسية</a></li>
+                <li><a href="#about" class="nav-link">عني</a></li>
+                <li><a href="#portfolio" class="nav-link">أعمالي</a></li>
+                <li><a href="#services" class="nav-link">خدماتي</a></li>
+                <li><a href="#contact" class="nav-link">اتصل بي</a></li>
+            </ul>
+        </div>
+        
+        <div class="navbar-end">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- القائمة الجانبية -->
+    <div class="side-menu" id="sideMenu">
+        <button class="menu-close" onclick="toggleMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="menu-content">
+            <h3 style="margin-bottom: 2rem; color: var(--accent);">القائمة الرئيسية</h3>
+            <ul style="list-style: none;">
+                <li><a href="#home" class="nav-link">الرئيسية</a></li>
+                <li><a href="#about" class="nav-link">عني</a></li>
+                <li><a href="#portfolio" class="nav-link">أعمالي</a></li>
+                <li><a href="#services" class="nav-link">خدماتي</a></li>
+                <li><a href="#contact" class="nav-link">اتصل بي</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">مهندس مدني محترف</h1>
+                <h2 class="hero-subtitle">متخصص في التصميم الإنشائي وإدارة المشاريع الهندسية</h2>
+                <button class="cta-button" onclick="showContactModal()">
+                    <i class="fas fa-paper-plane"></i>
+                    تواصل معي
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="c:\Users\dell\Documents\download.jpeg.jpg" alt="معاذ الحارثي" class="profile-img">
+                <div class="profile-frame"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- النافذة المنبثقة للاتصال -->
+    <<form class="contact-form" id="contactForm">
+        <div class="form-group">
+            <input type="text" class="form-input" name="name" required>
+            <label class="form-label">الاسم</label>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-input" name="email" required>
+            <label class="form-label">البريد الإلكتروني</label>
+        </div>
+        <div class="form-group">
+            <textarea class="form-input" name="message" rows="5" required></textarea>
+            <label class="form-label">الرسالة</label>
+        </div>
+        <button type="submit" class="cta-button">
+            <i class="fas fa-paper-plane"></i>
+            إرسال
+        </button>
+    </form>
+                <button type="submit" class="cta-button">
+                    <i class="fas fa-paper-plane"></i>
+                    إرسال
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- قسم المميزات -->
+<section class="features-section" id="features">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">مميزاتي وخبراتي</h2>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-drafting-compass"></i>
+                </div>
+                <h3>تصميم إنشائي</h3>
+                <p>خبرة واسعة في التصميم الإنشائي للمباني السكنية والتجارية باستخدام أحدث البرامج والمعايير الهندسية</p>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3>إدارة المشاريع</h3>
+                <p>إدارة المشاريع الهندسية بكفاءة عالية وضمان تسليمها في الوقت المحدد وبالجودة المطلوبة</p>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>تحليل إنشائي</h3>
+                <p>تحليل المنشآت وتقييم سلامتها الإنشائية باستخدام أحدث برامج التحليل الإنشائي</p>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h3>إشراف هندسي</h3>
+                <p>إشراف دقيق على تنفيذ المشاريع وضمان مطابقتها للمواصفات والمعايير الهندسية</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- الفوتر -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-grid">
+            <div class="footer-section" data-aos="fade-up">
+                <h3>تواصل معي</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> +966 5X XXX XXXX</p>
+                    <p><i class="fas fa-envelope"></i> contact@moath.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="100">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#about">عني</a></li>
+                    <li><a href="#portfolio">أعمالي</a></li>
+                    <li><a href="#services">خدماتي</a></li>
+                </ul>
+            </div>
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="150">
+                <h3>الهيئة السعودية للمهندسين</h3>
+                <div class="sce-info">
+                    <div class="sce-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/%D8%B4%D8%B9%D8%A7%D8%B1.%D8%A7%D9%84%D9%87%D9%8A%D8%A6%D8%A9.%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9.%D9%84%D9%84%D9%85%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D9%86.jpg/1280px-%D8%B4%D8%B9%D8%A7%D8%B1.%D8%A7%D9%84%D9%87%D9%8A%D8%A6%D8%A9.%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9.%D9%84%D9%84%D9%85%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D9%86.jpg" alt="شعار الهيئة السعودية للمهندسين">
+                    </div>
+                    <div class="sce-details">
+                        <p><i class="fas fa-id-card"></i> رقم العضوية: XXXXX</p>
+                        <p><i class="fas fa-certificate"></i> درجة التصنيف: مهندس محترف</p>
+                        <p><i class="fas fa-check-circle"></i> عضوية سارية</p>
+                        <a href="https://saudieng.sa/ar/Pages/default.aspx" class="sce-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            زيارة موقع الهيئة
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section" data-aos="fade-up" data-aos-delay="200">
+                <h3>تابعني</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">جميع الحقوق محفوظة &copy; 2025 م. معاذ الحارثي</p>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // تهيئة مكتبة AOS للتأثيرات الحركية
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // وظائف النافذة المنبثقة
+        function showContactModal() {
+            const modalContainer = document.getElementById('contactModalContainer');
+            const modal = document.getElementById('contactModal');
+            
+            modalContainer.classList.add('active');
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 100);
+        }
+
+        function hideContactModal() {
+            const modalContainer = document.getElementById('contactModalContainer');
+            const modal = document.getElementById('contactModal');
+            
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modalContainer.classList.remove('active');
+            }, 300);
+        }
+
+        // تبديل القائمة الجانبية
+        function toggleMenu() {
+            const sideMenu = document.getElementById('sideMenu');
+            sideMenu.classList.toggle('active');
+        }
+
+        // تبديل النمط (فاتح/داكن)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark-mode');
+            const themeIcon = document.querySelector('.theme-toggle i');
+            
+            if (isDark) {
+                html.classList.remove('dark-mode');
+                html.classList.add('light-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.remove('light-mode');
+                html.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+
+            localStorage.setItem('theme', isDark ? 'light-mode' : 'dark-mode');
+        }
+
+        // معالجة النموذج
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // إظهار رسالة التحميل
+            createToast('جاري إرسال رسالتك...', 'info');
+            
+            try {
+                // محاكاة إرسال البيانات
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // إظهار رسالة النجاح
+                createToast('تم إرسال رسالتك بنجاح!', 'success');
+                hideContactModal();
+                e.target.reset();
+            } catch (error) {
+                createToast('حدث خطأ في إرسال الرسالة', 'error');
+            }
+        });
+
+        // رسائل النظام
+        function createToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                z-index: 1001;
+                animation: slideIn 0.3s ease forwards;
+            `;
+
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : '⚠';
+            const color = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#f59e0b';
+
+            toast.innerHTML = `
+                <span style="color: ${color}; font-size: 1.5rem;">${icon}</span>
+                <p>${message}</p>
+            `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // استرجاع تفضيل النمط
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.classList.add(savedTheme);
+                if (savedTheme === 'dark-mode') {
+                    const themeIcon = document.querySelector('.theme-toggle i');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            }
+        });
+
+        // إغلاق القائمة عند النقر على الروابط
+        document.querySelectorAll('.side-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('sideMenu').classList.remove('active');
+            });
+        });
+
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', (e) => {
+            const sideMenu = document.getElementById('sideMenu');
+            const menuTrigger = document.querySelector('.menu-trigger');
+            
+            if (!sideMenu.contains(e.target) && !menuTrigger.contains(e.target)) {
+                sideMenu.classList.remove('active');
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // في الصفحة الرئيسية (index.html)
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // جمع بيانات النموذج
+    const name = document.querySelector('input[type="text"]').value;
+    const email = document.querySelector('input[type="email"]').value;
+    const message = document.querySelector('textarea').value;
+
+    // تخزين الرسالة في localStorage
+    const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    messages.push({
+        id: Date.now(),
+        name: name,
+        email: email,
+        message: message,
+        date: new Date().toLocaleString('ar-SA'),
+        status: 'جديد'
+    });
+    localStorage.setItem('messages', JSON.stringify(messages));
+
+
+    // إظهار رسالة النجاح
+    createToast('تم إرسال رسالتك بنجاح!', 'success');
+    hideContactModal();
+    e.target.reset();
+});
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | م. معاذ الحارثي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- إضافة meta tag لمنع التخزين المؤقت -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+
+
+    <style>
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        /* القائمة الجانبية */
+        .sidebar {
+            width: 260px;
+            background: var(--dark);
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 2rem;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logo h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .menu-items {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link:hover, .menu-link.active {
+            background: var(--primary);
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            margin-right: 260px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* جدول الرسائل */
+        .messages-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .status.new {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .status.read {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* نافذة عرض الرسالة */
+        .message-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .message-modal.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .message-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .message-info {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+            min-width: 100px;
+        }
+
+        .message-body {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .reply-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .archive-btn {
+            background: #f1f5f9;
+            color: var(--dark);
+        }
+
+        .modal-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="profile.jpg" alt="م. معاذ الحارثي">
+            <h2>لوحة التحكم</h2>
+        </div>
+        <ul class="menu-items">
+            <li class="menu-item">
+                <a href="#" class="menu-link active">
+                    <i class="fas fa-envelope"></i>
+                    <span>الرسائل</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="fas fa-cog"></i>
+                    <span>الإعدادات</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل الخروج</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <div class="header">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="بحث...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-count">3</span>
+            </div>
+        </div>
+
+        <div class="messages-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المرسل</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الرسالة</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="messagesTableBody">
+                    <!-- سيتم إضافة الرسائل هنا ديناميكياً -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- نافذة عرض الرسالة -->
+    <div class="modal-overlay" id="messageModalOverlay"></div>
+    <div class="message-modal" id="messageModal">
+        <div class="modal-header">
+            <h3>تفاصيل الرسالة</h3>
+            <button class="modal-close" onclick="closeMessageModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="message-content">
+            <div class="message-info">
+                <div class="info-item">
+                    <span class="info-label">المرسل:</span>
+                    <span id="modalSender"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">البريد:</span>
+                    <span id="modalEmail"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">التاريخ:</span>
+                    <span id="modalDate"></span>
+                </div>
+            </div>
+            <div class="message-body" id="modalMessage"></div>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn reply-btn">
+                <i class="fas fa-reply"></i>
+                رد
+            </button>
+            <button class="modal-btn archive-btn">
+                <i class="fas fa-archive"></i>
+                أرشفة
+            </button>
+        </div>
+    </div>
+
+    <script>
+       // المتغيرات العالمية
+let messages = [];
+const currentDate = new Date();
+
+// دالة تهيئة الصفحة
+function initializeAdmin() {
+    loadMessages();
+    setupEventListeners();
+    startAutoRefresh();
+    updateDateTime();
+    checkAuth();
+}
+
+// دالة التحقق من المصادقة
+function checkAuth() {
+    const currentUser = 'modmac1000gmail-com'; // يمكن تغييره حسب نظام المصادقة الخاص بك
+    const isAuthenticated = localStorage.getItem('adminAuthenticated');
+    
+    if (!isAuthenticated || localStorage.getItem('adminUser') !== currentUser) {
+        window.location.href = 'login.html';
+    }
+}
+
+// دالة تحميل الرسائل
+function loadMessages() {
+    try {
+        const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
+        messages = storedMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
+        updateMessagesTable();
+        updateNotificationCount();
+    } catch (error) {
+        console.error('Error loading messages:', error);
+        showNotification('حدث خطأ في تحميل الرسائل', 'error');
+    }
+}
+
+// دالة تحديث جدول الرسائل
+function updateMessagesTable() {
+    const tableBody = document.getElementById('messagesTableBody');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+    messages.forEach(msg => {
+        const row = createMessageRow(msg);
+        tableBody.appendChild(row);
+    });
+}
+
+// دالة إنشاء صف رسالة
+function createMessageRow(msg) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${escapeHtml(msg.name)}</td>
+        <td>${escapeHtml(msg.email)}</td>
+        <td>${escapeHtml(msg.message.substring(0, 30))}${msg.message.length > 30 ? '...' : ''}</td>
+        <td>${formatDate(msg.date)}</td>
+        <td><span class="status ${msg.status === 'جديد' ? 'new' : 'read'}">${msg.status}</span></td>
+        <td>
+            <div class="actions">
+                <button class="action-btn view-btn" onclick="showMessageModal(${msg.id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteMessage(${msg.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </td>
+    `;
+    return row;
+}
+
+// دالة عرض النافذة المنبثقة للرسالة
+function showMessageModal(messageId) {
+    const message = messages.find(msg => msg.id === messageId);
+    if (!message) return;
+
+    document.getElementById('modalSender').textContent = message.name;
+    document.getElementById('modalEmail').textContent = message.email;
+    document.getElementById('modalDate').textContent = formatDate(message.date);
+    document.getElementById('modalMessage').textContent = message.message;
+
+    document.getElementById('messageModalOverlay').classList.add('active');
+    document.getElementById('messageModal').classList.add('active');
+
+    if (message.status === 'جديد') {
+        message.status = 'مقروء';
+        localStorage.setItem('messages', JSON.stringify(messages));
+        updateMessagesTable();
+        updateNotificationCount();
+    }
+}
+
+// دالة إغلاق النافذة المنبثقة
+function closeMessageModal() {
+    document.getElementById('messageModalOverlay').classList.remove('active');
+    document.getElementById('messageModal').classList.remove('active');
+}
+
+// دالة حذف رسالة
+function deleteMessage(messageId) {
+    if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+
+    const index = messages.findIndex(msg => msg.id === messageId);
+    if (index !== -1) {
+        messages.splice(index, 1);
+        localStorage.setItem('messages', JSON.stringify(messages));
+        updateMessagesTable();
+        updateNotificationCount();
+        showNotification('تم حذف الرسالة بنجاح', 'success');
+    }
+}
+
+// دالة تحديث عدد الإشعارات
+function updateNotificationCount() {
+    const newMessages = messages.filter(msg => msg.status === 'جديد').length;
+    const notificationCount = document.querySelector('.notification-count');
+    if (notificationCount) {
+        notificationCount.textContent = newMessages;
+        notificationCount.style.display = newMessages > 0 ? 'flex' : 'none';
+    }
+}
+
+// دالة البحث في الرسائل
+function searchMessages(query) {
+    const searchResults = messages.filter(msg => 
+        msg.name.toLowerCase().includes(query.toLowerCase()) ||
+        msg.email.toLowerCase().includes(query.toLowerCase()) ||
+        msg.message.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    const tableBody = document.getElementById('messagesTableBody');
+    tableBody.innerHTML = '';
+    searchResults.forEach(msg => {
+        const row = createMessageRow(msg);
+        tableBody.appendChild(row);
+    });
+}
+
+// دالة تنسيق التاريخ
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleString('ar-SA', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// دالة تحديث التاريخ والوقت
+function updateDateTime() {
+    const dateTimeElement = document.getElementById('currentDateTime');
+    if (dateTimeElement) {
+        setInterval(() => {
+            const now = new Date();
+            dateTimeElement.textContent = now.toLocaleString('ar-SA');
+        }, 1000);
+    }
+}
+
+// دالة إظهار الإشعارات
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// دالة حماية من XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// دالة إعداد مستمعي الأحداث
+function setupEventListeners() {
+    // مستمع البحث
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchMessages(e.target.value);
+        });
+    }
+
+    // مستمع النافذة المنبثقة
+    const modalOverlay = document.getElementById('messageModalOverlay');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closeMessageModal);
+    }
+
+    // مستمع تبديل القائمة الجانبية
+    const menuTrigger = document.querySelector('.menu-trigger');
+    if (menuTrigger) {
+        menuTrigger.addEventListener('click', toggleSidebar);
+    }
+}
+
+// دالة تبديل القائمة الجانبية
+function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+}
+
+// دالة بدء التحديث التلقائي
+function startAutoRefresh() {
+    setInterval(loadMessages, 30000); // تحديث كل 30 ثانية
+}
+
+// تصدير الرسائل إلى ملف CSV
+function exportToCSV() {
+    const csvContent = messages.map(msg => {
+        return `${msg.name},${msg.email},"${msg.message}",${msg.date},${msg.status}`;
+    }).join('\n');
+
+    const blob = new Blob([`Name,Email,Message,Date,Status\n${csvContent}`], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `messages-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+// دالة تسجيل الخروج
+function logout() {
+    localStorage.removeItem('adminAuthenticated');
+    localStorage.removeItem('adminUser');
+    window.location.href = 'login.html';
+}
+
+// بدء تشغيل الصفحة
+document.addEventListener('DOMContentLoaded', initializeAdmin);
+    </script>
+</body>
+</html>

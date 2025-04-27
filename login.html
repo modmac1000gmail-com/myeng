@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | م. معاذ الحارثي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0891b2;
+            --secondary: #0e7490;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --gradient: linear-gradient(135deg, #0891b2, #0e7490);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f9ff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* أنماط الخلفية الهندسية */
+        .geometric-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .geometric-shape {
+            position: absolute;
+            background: var(--primary);
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 0 50% 50% 50%;
+            top: -150px;
+            right: -150px;
+            transform: rotate(45deg);
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            background: var(--secondary);
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            transform: rotate(45deg);
+            top: 50%;
+            right: -75px;
+            background: var(--accent);
+        }
+
+        /* أنماط الحاوية الرئيسية */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        /* أنماط الهيدر */
+        .login-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .login-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: rotate(45deg);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .login-logo:hover {
+            transform: rotate(0deg);
+        }
+
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: rotate(-45deg);
+        }
+
+        .login-title {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .login-subtitle {
+            color: var(--secondary);
+            font-size: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .login-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .login-subtitle:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* أنماط النموذج */
+        .login-form {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1.2rem;
+            padding-right: 3.5rem;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: var(--dark);
+            background: white;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 5px rgba(8, 145, 178, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus + .input-icon {
+            transform: translateY(-50%) scale(1.1);
+            color: var(--accent);
+        }
+
+        /* أنماط الزر */
+        .login-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-btn:hover::before {
+            opacity: 1;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(8, 145, 178, 0.2);
+        }
+
+        /* أنماط التذكر */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remember-me:hover {
+            color: var(--primary);
+        }
+
+        /* أنماط رسالة الخطأ */
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message.active {
+            display: flex;
+        }
+
+        /* أنماط التحميل */
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(8, 145, 178, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .login-title {
+                font-size: 1.8rem;
+            }
+
+            .login-logo {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الخلفية الهندسية -->
+    <div class="geometric-background">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-logo">
+                <img src="profile.jpg" alt="Logo">
+            </div>
+            <h1 class="login-title">لوحة تحكم المدير</h1>
+            <p class="login-subtitle">م. معاذ الحارثي</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>خطأ في اسم المستخدم أو كلمة المرور</span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-input" id="username" placeholder="اسم المستخدم" required>
+                <i class="fas fa-user input-icon"></i>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-input" id="password" placeholder="كلمة المرور" required>
+                <i class="fas fa-lock input-icon"></i>
+            </div>
+
+            <label class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <span>تذكرني</span>
+            </label>
+
+            <button type="submit" class="login-btn">
+                تسجيل الدخول
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // نفس الكود JavaScript السابق
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.querySelector('.error-message');
+            const loading = document.querySelector('.loading');
+            
+            errorMessage.classList.remove('active');
+            loading.classList.add('active');
+            
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                if (username === 'modmac1000gmail-com' && password === 'admin123') {
+                    localStorage.setItem('adminAuthenticated', 'true');
+                    localStorage.setItem('adminUser', username);
+                    
+                    if (rememberMe) {
+                        localStorage.setItem('rememberAdmin', 'true');
+                    }
+                    
+                    window.location.href = 'admin.html';
+                } else {
+                    throw new Error('بيانات غير صحيحة');
+                }
+            } catch (error) {
+                errorMessage.classList.add('active');
+            } finally {
+                loading.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('rememberAdmin') && localStorage.getItem('adminAuthenticated')) {
+                window.location.href = 'admin.html';
+            }
+        });
+    </script>
+</body>
+</html>

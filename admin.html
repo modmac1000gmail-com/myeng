@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | م. معاذ الحارثي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0/dist/apexcharts.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <style>
+        :root {
+            --primary: #0891b2;
+            --primary-dark: #0e7490;
+            --secondary: #6366f1;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            
+            /* Light Mode */
+            --bg-primary-light: #ffffff;
+            --bg-secondary-light: #f8fafc;
+            --text-primary-light: #1e293b;
+            --text-secondary-light: #64748b;
+            --border-light: #e2e8f0;
+            
+            /* Dark Mode */
+            --bg-primary-dark: #0f172a;
+            --bg-secondary-dark: #1e293b;
+            --text-primary-dark: #f8fafc;
+            --text-secondary-dark: #94a3b8;
+            --border-dark: #2d3748;
+        }
+
+        .light-mode {
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --border: var(--border-light);
+        }
+
+        .dark-mode {
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --border: var(--border-dark);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-primary);
+            border-left: 1px solid var(--border);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .admin-info h2 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .admin-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            list-style: none;
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover, .nav-item a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.messages { background: var(--primary); }
+        .stat-icon.new { background: var(--success); }
+        .stat-icon.pending { background: var(--warning); }
+        .stat-icon.total { background: var(--info); }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Data Grid */
+        .data-grid {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .grid-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .grid-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+                /* Table Styles */
+        .messages-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .messages-table th {
+            padding: 1rem 1.5rem;
+            text-align: right;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .messages-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .messages-table tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .message-preview {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-new {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-read {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--secondary);
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .view-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .message-details {
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .detail-label {
+            min-width: 120px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+        }
+
+        .message-content {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            white-space: pre-wrap;
+            color: var(--text-primary);
+        }
+
+        /* Charts Container */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .chart-header {
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                right: -280px;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                right: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .message-preview {
+                max-width: 150px;
+            }
+        }
+
+        /* Utilities */
+        .text-primary { color: var(--primary); }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+        .text-warning { color: var(--warning); }
+
+
+
+
+
+
+
+
+        /* شاشة التحميل */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader-content {
+    text-align: center;
+    color: white;
+}
+
+/* تحريك المبنى */
+.building-animation {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+.building {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.floor {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffd60a;
+    border-radius: 4px;
+    opacity: 0;
+    animation: buildUp 2s ease infinite;
+}
+
+.floor-1 { width: 80%; height: 20%; animation-delay: 0s; }
+.floor-2 { width: 70%; height: 40%; animation-delay: 0.5s; }
+.floor-3 { width: 60%; height: 60%; animation-delay: 1s; }
+.floor-4 { width: 50%; height: 80%; animation-delay: 1.5s; }
+
+/* الرافعة */
+.crane {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    animation: craneMove 4s ease infinite;
+}
+
+.crane-arm {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 100%;
+    height: 10px;
+    background: #ffd60a;
+    transform-origin: right center;
+    animation: craneArmSwing 4s ease infinite;
+}
+
+.crane-weight {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: #ffd60a;
+    border-radius: 50%;
+}
+
+.crane-cabin {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffd60a;
+    border-radius: 4px;
+}
+
+.crane-cable {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    width: 2px;
+    height: 50px;
+    background: #ffd60a;
+    animation: cableSwing 4s ease infinite;
+}
+
+/* شريط التقدم */
+.progress-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 1rem auto;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #ffd60a;
+    animation: progress 3s ease-in-out forwards;
+}
+
+/* النص */
+.loader-text h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffd60a;
+}
+
+.loader-text p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+}
+
+/* التحريكات */
+@keyframes buildUp {
+    0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+@keyframes craneMove {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+@keyframes craneArmSwing {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+@keyframes cableSwing {
+    0%, 100% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+}
+
+@keyframes progress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+    </style>
+</head>
+<body>
+<!-- شاشة التحميل -->
+<div class="loader-container" id="loaderContainer">
+    <div class="loader-content">
+        <div class="building-animation">
+            <!-- رسم المبنى -->
+            <div class="building">
+                <div class="floor floor-1"></div>
+                <div class="floor floor-2"></div>
+                <div class="floor floor-3"></div>
+                <div class="floor floor-4"></div>
+                <div class="crane">
+                    <div class="crane-arm"></div>
+                    <div class="crane-weight"></div>
+                    <div class="crane-cabin"></div>
+                    <div class="crane-cable"></div>
+                </div>
+            </div>
+        </div>
+        <div class="loader-text">
+            <h2>م. معاذ الحارثي</h2>
+            <p>جاري تحميل الموقع...</p>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-profile">
+                    <img src="profile.jpg" alt="Admin" class="admin-avatar">
+                    <div class="admin-info">
+                        <h2>م. معاذ الحارثي</h2>
+                        <p>مدير النظام</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="active">
+                        <i class="fas fa-envelope"></i>
+                        <span>الرسائل</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>الإحصائيات</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </li>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div class="page-title">
+                    <h1>لوحة التحكم</h1>
+                    <p id="currentDateTime"></p>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" onclick="exportToCSV()">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="action-btn" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon messages">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="totalMessages">0</div>
+                    <div class="stat-label">إجمالي الرسائل</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon new">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="newMessages">0</div>
+                    <div class="stat-label">رسائل جديدة</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="todayMessages">0</div>
+                    <div class="stat-label">رسائل اليوم</div>
+                </div>
+            </div>
+
+            <!-- Messages Table -->
+            <div class="data-grid">
+                <div class="grid-header">
+                    <h2 class="grid-title">الرسائل الواردة</h2>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="بحث...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+                
+                <table class="messages-table">
+                    <thead>
+                        <tr>
+                            <th>المرسل</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>الرسالة</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messagesTableBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal-overlay" id="messageModalOverlay"></div>
+    <div class="modal" id="messageModal">
+        <div class="modal-header">
+            <h3 class="modal-title">تفاصيل الرسالة</h3>
+            <button class="modal-close" onclick="closeMessageModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="message-details">
+            <div class="detail-item">
+                <span class="detail-label">المرسل:</span>
+                <span class="detail-value" id="modalSender"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">البريد الإلكتروني:</span>
+                <span class="detail-value" id="modalEmail"></span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">التاريخ:</span>
+                <span class="detail-value" id="modalDate"></span>
+            </div>
+        </div>
+        <div class="message-content" id="modalMessage"></div>
+      
+    </div>
+    
+<!-- Add this just before the closing body tag -->
+<script>
+// تحديث كود الجافا سكربت في admin.html
+
+// المتغيرات العالمية
+let messages = [];
+let currentUser = 'modmac1000gmail-com';
+
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    initializeAdmin();
+});
+
+// دالة تهيئة لوحة التحكم
+function initializeAdmin() {
+    checkAuthentication();
+    loadMessages();
+    updateDateTime();
+    setupEventListeners();
+}
+
+// التحقق من المصادقة
+function checkAuthentication() {
+    const isAuthenticated = localStorage.getItem('adminAuthenticated');
+    if (!isAuthenticated || localStorage.getItem('adminUser') !== currentUser) {
+        window.location.href = 'login.html';
+    }
+}
+
+// تحميل الرسائل
+function loadMessages() {
+    try {
+        messages = JSON.parse(localStorage.getItem('messages') || '[]');
+        updateMessagesTable();
+        updateStatistics();
+    } catch (error) {
+        console.error('Error loading messages:', error);
+    }
+}
+
+// دالة تنسيق التاريخ البسيطة
+function getCurrentDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+// تحديث التاريخ والوقت في الهيدر
+function updateDateTime() {
+    const dateElement = document.getElementById('currentDateTime');
+    if (dateElement) {
+        setInterval(() => {
+            dateElement.textContent = getCurrentDateTime();
+        }, 1000);
+    }
+}
+
+// تحديث جدول الرسائل
+function updateMessagesTable() {
+    const tableBody = document.getElementById('messagesTableBody');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+    messages.forEach(msg => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${escapeHtml(msg.name)}</td>
+            <td>${escapeHtml(msg.email)}</td>
+            <td class="message-preview">${escapeHtml(msg.message.substring(0, 50))}${msg.message.length > 50 ? '...' : ''}</td>
+            <td dir="ltr">${msg.date}</td>
+            <td>
+                <span class="status-badge ${msg.status === 'جديد' ? 'status-new' : 'status-read'}">
+                    <i class="fas ${msg.status === 'جديد' ? 'fa-bell' : 'fa-check'}"></i>
+                    ${msg.status}
+                </span>
+            </td>
+            <td>
+                <div class="actions">
+                    <button class="action-btn view-btn" onclick="showMessageModal(${msg.id})">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteMessage(${msg.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// تحديث الإحصائيات
+function updateStatistics() {
+    const totalMessages = messages.length;
+    const newMessages = messages.filter(msg => msg.status === 'جديد').length;
+    const todayMessages = messages.filter(msg => {
+        return msg.date.startsWith(getCurrentDateTime().split(' ')[0]);
+    }).length;
+
+    document.getElementById('totalMessages').textContent = totalMessages;
+    document.getElementById('newMessages').textContent = newMessages;
+    document.getElementById('todayMessages').textContent = todayMessages;
+}
+
+// عرض تفاصيل الرسالة
+function showMessageModal(messageId) {
+    const message = messages.find(msg => msg.id === messageId);
+    if (!message) return;
+
+    document.getElementById('modalSender').textContent = message.name;
+    document.getElementById('modalEmail').textContent = message.email;
+    document.getElementById('modalDate').textContent = message.date;
+    document.getElementById('modalMessage').textContent = message.message;
+
+    document.getElementById('messageModalOverlay').classList.add('active');
+    document.getElementById('messageModal').classList.add('active');
+
+    if (message.status === 'جديد') {
+        message.status = 'مقروء';
+        localStorage.setItem('messages', JSON.stringify(messages));
+        updateMessagesTable();
+        updateStatistics();
+    }
+}
+
+// إغلاق النافذة المنبثقة
+function closeMessageModal() {
+    document.getElementById('messageModalOverlay').classList.remove('active');
+    document.getElementById('messageModal').classList.remove('active');
+}
+
+// حذف رسالة
+function deleteMessage(messageId) {
+    if (!confirm('هل أنت متأكد من حذف هذه الرسالة؟')) return;
+
+    const index = messages.findIndex(msg => msg.id === messageId);
+    if (index !== -1) {
+        messages.splice(index, 1);
+        localStorage.setItem('messages', JSON.stringify(messages));
+        updateMessagesTable();
+        updateStatistics();
+        showNotification('تم حذف الرسالة بنجاح', 'success');
+    }
+}
+
+// حماية من XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// إعداد مستمعي الأحداث
+function setupEventListeners() {
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredMessages = messages.filter(msg => 
+                msg.name.toLowerCase().includes(query) ||
+                msg.email.toLowerCase().includes(query) ||
+                msg.message.toLowerCase().includes(query)
+            );
+            updateMessagesTable(filteredMessages);
+        });
+    }
+}
+
+// تسجيل الخروج
+function logout() {
+    if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+        localStorage.removeItem('adminAuthenticated');
+        localStorage.removeItem('adminUser');
+        window.location.href = 'login.html';
+    }
+}
+
+// عرض الإشعارات
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+
+
+
+// إخفاء شاشة التحميل بعد اكتمال تحميل الصفحة
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loaderContainer');
+    setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    }, 3000); // 3 ثواني للعرض
+});
+
+// تحديث شريط التقدم أثناء التحميل
+document.addEventListener('DOMContentLoaded', () => {
+    const progress = document.querySelector('.progress');
+    let width = 0;
+    const interval = setInterval(() => {
+        if (width >= 100) {
+            clearInterval(interval);
+        } else {
+            width++;
+            progress.style.width = width + '%';
+        }
+    }, 30);
+});
+</script>
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
